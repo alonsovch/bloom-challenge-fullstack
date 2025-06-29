@@ -1,8 +1,10 @@
+import { BrandSettings } from '../models/brand-setting';
+
 /** 
-* Debes completar este archivo como consideres adecuado
+* Configuraciones específicas para cada marca
 */
 
-export default [
+const brandSettings: BrandSettings[] = [
   {
     brandId: "karyn_coo",
     logistics: {
@@ -72,3 +74,5 @@ export default [
     },
   },
 ];
+
+export default brandSettings;
