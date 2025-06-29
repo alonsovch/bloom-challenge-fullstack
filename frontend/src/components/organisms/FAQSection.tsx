@@ -21,7 +21,7 @@ export const FAQSection = ({ brandId, className = '' }: FAQSectionProps) => {
         setError(null);
         const brandData = await apiService.getBrandWithFAQs(brandId);
         setData(brandData);
-        setExpandedItem(0);
+        setExpandedItem(null);
       } catch (err) {
         setError('Error al cargar las preguntas frecuentes');
         console.error('Error fetching brand FAQs:', err);
