@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Brand, apiService } from '../services/api';
+import { Select, Text, Spinner } from '../atoms';
+import { Brand, apiService } from '../../services/api';
 
-type BrandSelectorProps = {
+interface BrandSelectorProps {
   selectedBrandId: string | null;
   onBrandSelect: (brandId: string) => void;
-};
+  className?: string;
+}
 
-export const BrandSelector = ({ selectedBrandId, onBrandSelect }: BrandSelectorProps) => {
+export const BrandSelector = ({ 
+  selectedBrandId, 
+  onBrandSelect,
+  className = ''
+}: BrandSelectorProps) => {
   const [brands, setBrands] = useState<Brand[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,30 +36,41 @@ export const BrandSelector = ({ selectedBrandId, onBrandSelect }: BrandSelectorP
 
   if (loading) {
     return (
-      <div className="w-full max-w-md mx-auto">
-        <div className="animate-pulse bg-gray-200 h-12 rounded-lg"></div>
+      <div className={`w-full max-w-md mx-auto ${className}`}>
+        <div className="flex items-center justify-center p-4">
+          <Spinner size="md" />
+          <Text variant="body" color="muted" className="ml-2">
+            Cargando marcas...
+          </Text>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="w-full max-w-md mx-auto p-4 bg-red-50 border border-red-200 rounded-lg">
-        <p className="text-red-600 text-center">{error}</p>
+      <div className={`w-full max-w-md mx-auto ${className}`}>
+        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+          <Text variant="body" color="error" align="center">
+            {error}
+          </Text>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <label htmlFor="brand-select" className="block text-lg font-medium text-gray-700 mb-3">
+    <div className={`w-full max-w-md mx-auto ${className}`}>
+      <Text 
+        variant="subtitle" 
+        color="primary" 
+        className="block mb-3"
+      >
         Selecciona una marca:
-      </label>
-      <select
-        id="brand-select"
+      </Text>
+      <Select
         value={selectedBrandId || ''}
         onChange={(e) => onBrandSelect(e.target.value)}
-        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg"
       >
         <option value="">Elige una marca...</option>
         {brands.map((brand) => (
@@ -61,7 +78,7 @@ export const BrandSelector = ({ selectedBrandId, onBrandSelect }: BrandSelectorP
             {brand.name}
           </option>
         ))}
-      </select>
+      </Select>
     </div>
   );
 }; 
