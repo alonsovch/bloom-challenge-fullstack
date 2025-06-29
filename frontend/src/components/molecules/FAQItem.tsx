@@ -17,6 +17,7 @@ export const FAQItem = ({
 }: FAQItemProps) => {
   const [internalExpanded, setInternalExpanded] = useState(isExpanded);
   const contentRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState(0);
   
   const expanded = onToggle ? isExpanded : internalExpanded;
@@ -28,8 +29,31 @@ export const FAQItem = ({
     }
   }, [expanded, faq.answer]);
 
+  useEffect(() => {
+    if (expanded && containerRef.current) {
+      setTimeout(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const rect = container.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const scrollOffset = 20;
+
+        const elementBottom = rect.bottom + contentHeight;
+        const isFullyVisible = rect.top >= scrollOffset && elementBottom <= viewportHeight - scrollOffset;
+
+        if (!isFullyVisible) {
+          container.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 100);
+    }
+  }, [expanded, contentHeight]);
+
   return (
-    <div className={`border-b border-gray-100 py-6 ${className}`}>
+    <div ref={containerRef} className={`border-b border-gray-100 py-6 ${className}`}>
       <button
         onClick={handleToggle}
         className="w-full text-left focus:outline-none group"
