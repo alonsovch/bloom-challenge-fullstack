@@ -1,4 +1,5 @@
 import BrandService from "../services/brand";
+import FAQService from "../services/faq";
 import { Request, Response, NextFunction } from "express";
 
 const listBrands = async (req: Request, res: Response, next: NextFunction) => {
@@ -11,6 +12,7 @@ const listBrands = async (req: Request, res: Response, next: NextFunction) => {
   }
   next();
 };
+
 const getBrandById = async (
   req: Request,
   res: Response,
@@ -19,7 +21,8 @@ const getBrandById = async (
   const { id } = req.params;
   try {
     const brand = await BrandService.retrieve(id);
-    res.status(200).json(brand);
+    const faqResponse = FAQService.generateFAQs(brand);
+    res.status(200).json(faqResponse);
   } catch (error) {
     console.error("Error fetching brand:", error);
     res.status(500).json(error);
