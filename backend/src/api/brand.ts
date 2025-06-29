@@ -5,12 +5,11 @@ import { Request, Response, NextFunction } from "express";
 const listBrands = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const brands = await BrandService.list();
-    res.status(201).json(brands);
+    res.status(200).json(brands);
   } catch (error) {
     console.error("Error fetching brands:", error);
-    res.status(500).json(error);
+    res.status(500).json({ error: "Failed to fetch brands" });
   }
-  next();
 };
 
 const getBrandById = async (
@@ -25,9 +24,8 @@ const getBrandById = async (
     res.status(200).json(faqResponse);
   } catch (error) {
     console.error("Error fetching brand:", error);
-    res.status(500).json(error);
+    res.status(500).json({ error: "Failed to fetch brand" });
   }
-  next();
 };
 
 export { listBrands, getBrandById };

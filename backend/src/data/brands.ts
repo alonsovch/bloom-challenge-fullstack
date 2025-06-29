@@ -1,8 +1,6 @@
-/** 
-* Debes completar este archivo con el resto de las marcas
-*/
+import { Brand } from '../models/brand';
 
-export default [
+const brands: Brand[] = [
   {
     id: "karyn_coo",
     name: "Karyn Coo",
@@ -24,3 +22,5 @@ export default [
     url: "https://vintage.kokoro.cl",
   },
 ];
+
+export default brands;

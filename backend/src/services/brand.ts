@@ -6,26 +6,30 @@ const BrandService = {
   retrieve(id: string): Promise<Brand> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        const brand = brands.find((brand) => brand.id === id);
-        const brandSetting = brandSettings.find(
+        const foundBrand = brands.find((item) => item.id === id);
+        const foundSettings = brandSettings.find(
           (setting) => setting.brandId === id
         );
-        if (!brand || !brandSetting) {
+        
+        if (!foundBrand || !foundSettings) {
           reject(new Error("Brand not found"));
           return;
         }
+        
         const brandWithSettings: Brand = {
-          ...brand,
-          settings: brandSetting,
+          ...foundBrand,
+          settings: foundSettings,
         };
+        
         resolve(brandWithSettings);
       }, 1000);
     });
   },
+  
   list(): Promise<Brand[]> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(brands as Brand[]);
+        resolve(brands);
       }, 1000);
     });
   },

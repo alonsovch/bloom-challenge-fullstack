@@ -18,32 +18,24 @@ const FAQService = {
     }
 
     const faqs: FAQ[] = [
-      // Pregunta 1: Siempre se muestra para todas las marcas
       {
         question: '¿Cómo puedo publicar un producto para la venta?',
         answer: '¡Publicar tu producto es muy fácil! Simplemente haz clic en "Vender", crea una cuenta y sigue el proceso de publicación. Una vez que completes el formulario de venta, la publicación será revisada por nuestro equipo y en un plazo máximo de 24 horas, te avisaremos si está aprobada o rechazada. Después de ser revisada y aprobada, se hará pública. Si hay algún problema, recibirás un correo electrónico pidiendo hacer cambios antes de que pueda ser aceptada.'
       },
-
-      // Pregunta 2: Dinámica según logística
       {
         question: '¿Cómo envío mi artículo después de que alguien lo compra?',
         answer: this.generateShippingAnswer(brand.settings)
       },
-
-      // Pregunta 3: Dinámica según métodos de pago
       {
         question: '¿Cómo y cuándo recibo el pago?',
         answer: this.generatePaymentAnswer(brand.settings)
       },
-
-      // Pregunta 4: Dinámica según costos adicionales
       {
         question: '¿Hay cobros adicionales por vender mi producto por acá?',
         answer: this.generateAdditionalChargesAnswer(brand.settings)
       }
     ];
 
-    // Pregunta 5: Solo si tiene cupones habilitados
     if (brand.settings.faq.showCouponsPolicy) {
       faqs.push({
         question: 'Política de uso de cupones',
