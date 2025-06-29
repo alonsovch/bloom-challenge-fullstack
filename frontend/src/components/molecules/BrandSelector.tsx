@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Select, Text, Spinner } from '../atoms';
+import { Select, Spinner } from '../atoms';
 import { Brand, apiService } from '../../services/api';
 
 interface BrandSelectorProps {
@@ -36,12 +36,9 @@ export const BrandSelector = ({
 
   if (loading) {
     return (
-      <div className={`w-full max-w-md mx-auto ${className}`}>
-        <div className="flex items-center justify-center p-4">
-          <Spinner size="md" />
-          <Text variant="body" color="muted" className="ml-2">
-            Cargando marcas...
-          </Text>
+      <div className={`w-full max-w-sm mx-auto ${className}`}>
+        <div className="flex items-center justify-center p-6">
+          <Spinner size="md" color="gray" />
         </div>
       </div>
     );
@@ -49,30 +46,21 @@ export const BrandSelector = ({
 
   if (error) {
     return (
-      <div className={`w-full max-w-md mx-auto ${className}`}>
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-          <Text variant="body" color="error" align="center">
-            {error}
-          </Text>
+      <div className={`w-full max-w-sm mx-auto ${className}`}>
+        <div className="text-center text-gray-500 py-4">
+          {error}
         </div>
       </div>
     );
   }
 
   return (
-    <div className={`w-full max-w-md mx-auto ${className}`}>
-      <Text 
-        variant="subtitle" 
-        color="primary" 
-        className="block mb-3"
-      >
-        Selecciona una marca:
-      </Text>
+    <div className={`w-full max-w-sm mx-auto ${className}`}>
       <Select
         value={selectedBrandId || ''}
         onChange={(e) => onBrandSelect(e.target.value)}
       >
-        <option value="">Elige una marca...</option>
+        <option value="">Selecciona una marca</option>
         {brands.map((brand) => (
           <option key={brand.id} value={brand.id}>
             {brand.name}

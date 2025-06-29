@@ -14,8 +14,8 @@ export const Select = ({
   disabled,
   ...props 
 }: SelectProps) => {
-  const baseClasses = 'w-full px-4 py-3 border rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg';
-  const errorClasses = error ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-300';
+  const baseClasses = 'w-full px-4 py-3 border rounded-md bg-white shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-base transition-colors text-gray-900 [&>option]:text-gray-900 [&>option]:bg-white';
+  const errorClasses = error ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-gray-200';
   const disabledClasses = (disabled || isLoading) ? 'opacity-50 cursor-not-allowed' : '';
   
   const classes = `${baseClasses} ${errorClasses} ${disabledClasses} ${className}`;

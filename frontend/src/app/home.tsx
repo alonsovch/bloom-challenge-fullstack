@@ -22,13 +22,9 @@ export const Home = () => {
       )}
 
       {!selectedBrandId && (
-        <div className="text-center py-16">
-          <div className="text-gray-400 text-6xl mb-4">🏷️</div>
-          <Text variant="h3" color="secondary" align="center" className="mb-2">
-            Elige una marca para comenzar
-          </Text>
+        <div className="text-center py-20">
           <Text variant="body" color="muted" align="center">
-            Selecciona una marca del menú superior para ver sus preguntas frecuentes específicas
+            Selecciona una marca para ver las preguntas frecuentes
           </Text>
         </div>
       )}
