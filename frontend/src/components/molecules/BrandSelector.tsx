@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Select, Spinner } from '../atoms';
+import { CustomSelect, Spinner } from '../atoms';
 import { Brand, apiService } from '../../services/api';
 
 interface BrandSelectorProps {
@@ -54,19 +54,21 @@ export const BrandSelector = ({
     );
   }
 
+  // Transformar las marcas al formato que espera CustomSelect
+  const brandOptions = brands.map(brand => ({
+    value: brand.id,
+    label: brand.name
+  }));
+
   return (
     <div className={`w-full max-w-sm mx-auto ${className}`}>
-      <Select
+      <CustomSelect
         value={selectedBrandId || ''}
-        onChange={(e) => onBrandSelect(e.target.value)}
-      >
-        <option value="">Selecciona una marca</option>
-        {brands.map((brand) => (
-          <option key={brand.id} value={brand.id}>
-            {brand.name}
-          </option>
-        ))}
-      </Select>
+        onChange={onBrandSelect}
+        options={brandOptions}
+        placeholder="Selecciona una marca"
+        error={error || undefined}
+      />
     </div>
   );
 }; 
